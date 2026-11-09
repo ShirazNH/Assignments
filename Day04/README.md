@@ -1,17 +1,17 @@
 ## Assignment 4
 
-For this assignment I copied my Day03 project (the *mating efficiency index* of a clock-gene mutant) into a new folder, *Day04*, so the old version stays intact. I then asked Claude to build a web application with **Flask** that uses the same calculation ("business logic") and gives it a web interface.
+For this assignment I copied my Day03 project (the *mating efficiency index* of a clock-gene mutant) into a new folder, *Day04*, so the old version stays intact. I then asked Claude to build a web application with **Flask** that uses the same calculation and gives it a web interface.
 
 The prompts I used:
-> Please explain what it means to write a web application and what Flask is before doing anything, and wait for my request before executing.
+> Take the previous assignment, Copy it to the day04 folder just so we will have the old one intact. Write a web application (e.g. using Flask) that will use the "business logic" from the previous implementation and provide a web interface to it. Check that both the old and the new systems work. Please explain what it means to write a web application and what Flask is before doing anything, and wait for my request before executing.
 
-> Let's add a bar plot. Is there a specific structure the data should be in? If so, let's add it to the website so a user will know how to organize the data. Please do everything else as you said. I will commit and push.
+> Let's add a bar plot. Is there a specific structure the data should be in? If so, let's add it to the website so a user will know how to organize the data.
 
 ### What's in this folder
 
 | File | What it does |
 |------|--------------|
-| `mating_efficiency_index.py` | The business logic: checks the data format, calculates the index per male and the mean/SD per genotype, draws the bar plot and writes the Excel output. It can still be run on its own from the command line. |
+| `mating_efficiency_index.py` | The logic: checks the data format, calculates the index per male and the mean/SD per genotype, draws the bar plot and writes the Excel output. It can still be run on its own from the command line. |
 | `app.py` | The Flask web application. It imports the functions above and only handles pages, uploads and downloads. |
 | `templates/`, `static/` | The HTML pages and the stylesheet of the website. |
 | `Data/` | The original data (unchanged) and the outputs of the command-line version (Excel + bar plot). |
