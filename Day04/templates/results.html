@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Results: {{ sheet }}</h1>
+<p>
+  <a class="button" href="{{ url_for('download', token=token, sheet=sheet) }}">Download results (Excel)</a>
+  <a class="button secondary" href="{{ url_for('download_plot', token=token, sheet=sheet) }}">Download plot (PNG)</a>
+  <a class="button secondary" href="{{ url_for('choose_sheet', token=token) }}">Choose another sheet</a>
+</p>
+
+<section class="card">
+  <h2>Bar plot</h2>
+  <img class="plot" src="data:image/png;base64,{{ plot_png }}"
+       alt="Bar plot of mean mating efficiency index per genotype">
+</section>
+
+<section class="card">
+  <h2>Average index per genotype</h2>
+  <div class="table-wrap">{{ per_genotype | safe }}</div>
+</section>
+
+<section class="card">
+  <h2>Index per male</h2>
+  <div class="table-wrap">{{ per_male | safe }}</div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>The data is not in the expected format</h1>
+<div class="alert">{{ message }}</div>
+<p>The sheet <strong>{{ sheet }}</strong> needs the columns {{ required_columns | join(", ") }},
+  one row per male, with herm scores of 0 or 1 only.</p>
+<p>
+  <a class="button" href="{{ url_for('index') }}">See format instructions</a>
+  <a class="button secondary" href="{{ url_for('choose_sheet', token=token) }}">Choose another sheet</a>
+</p>
+{% endblock %}

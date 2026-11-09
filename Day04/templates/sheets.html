@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Choose a sheet</h1>
+<p>Sheets marked <span class="ok">✓</span> have the required columns
+  ({{ required_columns | join(", ") }}). Other sheets can't be analyzed until they're
+  reorganized (see the <a href="{{ url_for('index') }}">format instructions</a>).</p>
+
+<section class="card">
+  <form action="{{ url_for('results', token=token) }}" method="get">
+    <ul class="sheet-list">
+      {% for name, ok in sheets %}
+      <li>
+        <label class="{{ '' if ok else 'disabled' }}">
+          <input type="radio" name="sheet" value="{{ name }}" {{ 'disabled' if not ok }}
+                 {{ 'checked' if name == default }} required>
+          {{ name }}
+          {% if ok %}<span class="ok">✓</span>{% else %}<span class="muted">wrong format</span>{% endif %}
+        </label>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if sheets | selectattr(1) | list %}
+      <button class="button" type="submit">Calculate</button>
+    {% else %}
+      <div class="alert">No sheet in this file has the required columns. Please check the
+        <a href="{{ url_for('index') }}">format instructions</a>.</div>
+    {% endif %}
+  </form>
+</section>
+{% endblock %}

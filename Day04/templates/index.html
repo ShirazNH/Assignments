@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Calculate the mating efficiency index</h1>
+<p class="lead">
+  Each male is tested with 4 hermaphrodites. His <strong>mating efficiency index</strong> is the
+  fraction of those hermaphrodites that had progeny (0, 0.25, 0.5, 0.75 or 1).
+  The tool calculates the index for every male, then the mean and standard deviation per genotype,
+  and draws a bar plot.
+</p>
+
+{% if error %}<div class="alert">{{ error }}</div>{% endif %}
+
+<section class="card">
+  <h2>1. Organize your data</h2>
+  <p>Use an Excel file (<code>.xlsx</code>). The sheet you analyze must look like this:</p>
+  <ul>
+    <li><strong>First row = column names</strong>, spelled exactly as below (case-sensitive).</li>
+    <li><strong>One row per male.</strong></li>
+    <li><code>Genotype</code>: the group the male belongs to (e.g. <code>him-5</code>, <code>ces-2</code>).
+        Every row needs a value. Groups appear in the plot in the order they first appear in the sheet.</li>
+    <li>{% for c in herm_columns %}<code>{{ c }}</code>{% if not loop.last %}, {% endif %}{% endfor %}:
+        one column per hermaphrodite, scored <code>1</code> = had progeny, <code>0</code> = no progeny.
+        Only 0 or 1 are allowed, with no empty cells.</li>
+    <li>Other columns (e.g. <code>male_number</code>, notes) are allowed. They're kept in the output but not used.</li>
+    <li>A workbook may have several sheets. You choose which one to analyze in the next step.</li>
+  </ul>
+
+  <div class="table-wrap">
+    <table class="table example">
+      <thead><tr><th>Genotype</th><th>male_number</th><th>herm_1</th><th>herm_2</th><th>herm_3</th><th>herm_4</th></tr></thead>
+      <tbody>
+        <tr><td>wild-type</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>wild-type</td><td>2</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>mutant</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>mutant</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a class="button secondary" href="{{ url_for('download_template') }}">Download an Excel template</a></p>
+</section>
+
+<section class="card">
+  <h2>2. Upload your file</h2>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="data_file" accept=".xlsx" required>
+    <button class="button" type="submit">Upload</button>
+  </form>
+  <p class="muted">Or try it with the example data:
+    <a href="{{ url_for('choose_sheet', token='example') }}">mating_efficiency_data.xlsx</a></p>
+</section>
+{% endblock %}
