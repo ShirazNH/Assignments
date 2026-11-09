@@ -1,2 +1,8 @@
 # Excel temporary lock files (created while a workbook is open)
 ~$*
+
+# Python cache
+__pycache__/
+
+# Files uploaded through the Day04 web app
+Day04/uploads/
