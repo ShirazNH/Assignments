@@ -7,12 +7,16 @@ The prompts I used:
 
 > Let's add a bar plot. Is there a specific structure the data should be in? If so, let's add it to the website so a user will know how to organize the data.
 
+Then I asked Claude to write tests for the business logic:
+> I want to write some tests for the "business logic" of the applications. Please use pytest for that. Store it in the Day04 folder.
+
 ### What's in this folder
 
 | File | What it does |
 |------|--------------|
 | `mating_efficiency_index.py` | The logic: checks the data format, calculates the index per male and the mean/SD per genotype, draws the bar plot and writes the Excel output. It can still be run on its own from the command line. |
 | `app.py` | The Flask web application. It imports the functions above and only handles pages, uploads and downloads. |
+| `test_mating_efficiency_index.py` | pytest tests for the logic in `mating_efficiency_index.py`. |
 | `templates/`, `static/` | The HTML pages and the stylesheet of the website. |
 | `Data/` | The original data (unchanged) and the outputs of the command-line version (Excel + bar plot). |
 | `requirements.txt` | The Python packages needed. |
@@ -41,6 +45,12 @@ On the website you can:
 3. Choose a sheet. Sheets in the right format are marked ✓.
 4. See the bar plot (mean ± SD, with each male as a dot) and the tables, and download the results as Excel and the plot as PNG.
 
+**Tests:**
+```
+python -m pytest -v
+```
+`-v` lists each test with PASSED or FAILED. Without it you get a one-line summary.
+
 ### Required data format
 
 - One row per male, first row = column names.
@@ -56,3 +66,12 @@ The Day03 script and the Day04 script (command line and web download) were run o
 |----------|---------|------------|----------|
 | him-5    | 12      | 0.458      | 0.257    |
 | ces-2    | 15      | 0.117      | 0.208    |
+
+### Tests
+
+The tests (23 in total, all passing) check that:
+- **Index per male:** every possible value (0, 0.25, 0.5, 0.75, 1) is calculated correctly, extra columns are kept, and the input table is not changed.
+- **Per-genotype summary:** the number of males, mean and SD match values calculated by hand, and genotypes keep the order they appear in the sheet.
+- **Data format errors:** a missing or misspelled column, an empty genotype, or a score other than 0 or 1 gives an error naming the column and Excel row.
+- **Outputs:** the Excel file contains both tables, and the bar plot has one bar per genotype at the mean.
+- **Real data:** the sheet above still gives the same results as Day03.
