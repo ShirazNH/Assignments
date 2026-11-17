@@ -6,3 +6,6 @@ __pycache__/
 
 # Files uploaded through the Day04 web app
 Day04/uploads/
+
+# pytest cache
+.pytest_cache/
