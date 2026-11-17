@@ -3,6 +3,8 @@
 For this assignment I copied my Day03 project (the *mating efficiency index* of a clock-gene mutant) into a new folder, *Day04*, so the old version stays intact. I then asked Claude to build a web application with **Flask** that uses the same calculation and gives it a web interface.
 
 The prompts I used:
+> Hi Claude, In Day03 I have my previous assignment for the course I am doing. That was the assignment: Search for some science (biology, chemistry, physics, etc.) related computation. Write a program that has a function that can do this computation. Find (or generate) some data that can be used for this computation. Store the data in a file or files. Look at the @Day03/README.md file to see what I did together with Claude code. Then, please help me with my new assignment. Let me know when you are ready for it.
+
 > Take the previous assignment, Copy it to the day04 folder just so we will have the old one intact. Write a web application (e.g. using Flask) that will use the "business logic" from the previous implementation and provide a web interface to it. Check that both the old and the new systems work. Please explain what it means to write a web application and what Flask is before doing anything, and wait for my request before executing.
 
 > Let's add a bar plot. Is there a specific structure the data should be in? If so, let's add it to the website so a user will know how to organize the data.
